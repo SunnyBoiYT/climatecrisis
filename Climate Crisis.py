@@ -129,6 +129,10 @@ while play:
 
     if (screen == 0): #Just overlays all buttons and things together to work well
         window.blit(bg, (0, 0))
+        if (x > w * 500/1600  and x < w * 1100/1600 and y > h * 740/900 and y < h * 860/900):
+            window.blit(quitHov, (w * 500/1600, h * 740/900))
+        else:
+            window.blit(quit, (w * 500/1600, h * 740/900))
         #start button
         if (x > w * 500/1600  and x < w * 1100/1600 and y > h * 260/900  and y < h * 380/900):
             window.blit(startButHov, (w * 500/1600, h * 260/900))
@@ -156,6 +160,11 @@ while play:
 
         window.blit(mainbg, (0, 0))
 
+        if (x > w * 10/1600  and x < w * 10/1600 and y > h * 610/900 and y < h * 130/900):
+            window.blit(quitHov, (w * 10/1600, h * 10/900))
+        else:
+            window.blit(quit, (w * 10/1600, h * 10/900))
+        
         window.blit(yearText, (w * 1320/1600, h * 100/900))
         window.blit(tempText, (w * 1225/1600, h * 30/900))
 
@@ -228,13 +237,17 @@ while play:
 
     elif (screen == 2):
         window.blit(instructbg, (0, 0))
+        if (x > w * 900/1600  and x < w * 1500/1600 and y > h * 415/900 and y < h * 535/900):
+            window.blit(backHov, (w * 950/1600, h * 415/900))
+        else:
+            window.blit(back, (w * 950/1600, h * 415/900))
     elif (screen == 3):
         pygame.draw.rect(window, (0,0,0), pygame.Rect(0, 0, w, h))
         if (x > w * 900/1600  and x < w * 1500/1600 and y > h * 415/900 and y < h * 535/900):
             window.blit(backHov, (w * 950/1600, h * 415/900))
         else:
             window.blit(back, (w * 950/1600, h * 415/900))
-        window.blit(tcQR, ((w/2) - (h/2), 0))        
+        window.blit(tcQR, (0, 0))        
     
     #for any event that happens in the game (mainly refers to keybinds)
     for event in pygame.event.get():
@@ -248,7 +261,7 @@ while play:
 
         if (screen == 1):
             if (x > w * 10/1600  and x < w * 10/1600 and y > h * 610/900 and y < h * 250/900 and event.type == pygame.MOUSEBUTTONDOWN):
-                play = False;
+                play = False
         
         #game screens
         if (screen == 0):
@@ -306,16 +319,5 @@ while play:
         window.blit(loseText, (w * 250/1600, h * 400/900))
     elif (screen == 5):
         window.blit(winText, (w * 300/1600, h * 400/900))
-
-    if (screen == 0):
-        if (x > w * 500/1600  and x < w * 1100/1600 and y > h * 740/900 and y < h * 860/900):
-            window.blit(quitHov, (w * 500/1600, h * 740/900))
-        else:
-            window.blit(quit, (w * 500/1600, h * 740/900))
-    elif (screen != 3):
-        if (x > w * 10/1600  and x < w * 10/1600 and y > h * 610/900 and y < h * 130/900):
-            window.blit(quitHov, (w * 10/1600, h * 10/900))
-        else:
-            window.blit(quit, (w * 10/1600, h * 10/900))
         
     pygame.display.update()
