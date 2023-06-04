@@ -28,6 +28,23 @@ mainbg = pygame.transform.scale(mainbgInit, (w, h))
 treeInit = pygame.image.load(os.path.join("./", "tree.png"))
 tree = pygame.transform.scale(treeInit, (w * 320/1600, h * 370/900))
 
+
+bobStandingInit = pygame.image.load(os.path.join("./", "bobStanding.png"))
+bobStanding = pygame.transform.scale(bobStandingInit, (w * 70/1600, h * 175/900))
+
+bobRightInit = pygame.image.load(os.path.join("./", "bobRight.png"))
+bobRight = pygame.transform.scale(bobRightInit, (w * 70/1600, h * 175/900))
+
+bobLeftInit = pygame.image.load(os.path.join("./", "bobLeft.png"))
+bobLeft = pygame.transform.scale(bobLeftInit, (w * 70/1600, h * 175/900))
+
+bobSeedLeftInit = pygame.image.load(os.path.join("./", "bobSeedLeft.png"))
+bobSeedLeft = pygame.transform.scale(bobSeedLeftInit, (w * 70/1600, h * 175/900))
+
+bobSeedRightInit = pygame.image.load(os.path.join("./", "bobSeedRight.png"))
+bobSeedRight = pygame.transform.scale(bobSeedRightInit, (w * 70/1600, h * 175/900))
+
+
 play = True
 start_ticks=pygame.time.get_ticks()
 screen = 0
@@ -35,6 +52,8 @@ screen = 0
 playerX = w * 40/1600
 moveRight = False
 moveLeft = False
+
+plantingSeed = False
 
 while play:
     
@@ -65,15 +84,27 @@ while play:
 
         if ((moveRight and not moveLeft) and (playerX <= w * 1530/1600)):
             playerX += w * 20/1600
+            if (plantingSeed == False):
+                window.blit(bobRight, (playerX, h * 600/900))
+            else:
+               window.blit(bobSeedRight, (playerX, h * 600/900)) 
         elif ((moveLeft) and (playerX >= w * 20/1600)):
             playerX -= w * 20/1600
-
-        pygame.draw.rect(window, (200, 0, 0), pygame.Rect(playerX, h * 625/900, w * 70/1600, h * 150/900))
+            if (plantingSeed == False):
+                window.blit(bobLeft, (playerX, h * 600/900))
+            else:
+               window.blit(bobSeedLeft, (playerX, h * 600/900)) 
+        else:
+            window.blit(bobStanding, (playerX, h * 600/900))
 
     for event in pygame.event.get():
         
         if event.type == pygame.QUIT:
             play = False
+
+        if event.type == pygame.KEYDOWN:
+            if (event.key == pygame.K_ESCAPE):
+                play = False
 
         #game screens
         if (screen == 0):
@@ -86,18 +117,21 @@ while play:
             if (x > w * 500/1600  and x < w * 1100/1600 and y > h * 720/900 and y < h * 820/900 and event.type == pygame.MOUSEBUTTONDOWN):
                 play = False
         elif (screen == 1):
-            moveRight = False
-            moveLeft = False
             if event.type == pygame.KEYDOWN:
-                if (event.key == pygame.K_ESCAPE):
-                    play = False
-                
                 if ((event.key == pygame.K_d or event.key == pygame.K_RIGHT) and (not (event.key == pygame.K_a or event.key == pygame.K_LEFT))):
                     moveLeft = False
                     moveRight = True
-                elif ((event.key == pygame.K_a or event.key == pygame.K_LEFT) and (not (event.key == pygame.K_d or event.key == pygame.K_RIGHT))):
+                elif ((event.key == pygame.K_a or event.key == pygame.K_LEFT)):
                     moveLeft = True
                     moveRight = False
                 #elif ((event.key == pygame.K_s or event.key == pygame.K_DOWN or event.key == pygame.K_SPACE)):
+            elif (event.type == pygame.KEYUP):
+                if ((event.key == pygame.K_d or event.key == pygame.K_RIGHT) and (not (event.key == pygame.K_a or event.key == pygame.K_LEFT))):
+                    moveLeft = False
+                    moveRight = False
+                elif (event.key == pygame.K_a or event.key == pygame.K_LEFT):
+                    moveRight = False
+                    moveLeft = False
+
     print("Position:" + str(playerX) + ", boundaryLeft:" + str(w * 20/1600), " boundaryRight:" + str(w * 1580/1600))          
     pygame.display.update()
