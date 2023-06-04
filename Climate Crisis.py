@@ -160,7 +160,7 @@ while play:
 
         window.blit(mainbg, (0, 0))
 
-        if (x > w * 10/1600  and x < w * 10/1600 and y > h * 610/900 and y < h * 130/900):
+        if (x > w * 10/1600  and x < w * 610/1600 and y > h * 10/900 and y < h * 130/900):
             window.blit(quitHov, (w * 10/1600, h * 10/900))
         else:
             window.blit(quit, (w * 10/1600, h * 10/900))
@@ -260,7 +260,7 @@ while play:
                 play = False
 
         if (screen == 1):
-            if (x > w * 10/1600  and x < w * 10/1600 and y > h * 610/900 and y < h * 250/900 and event.type == pygame.MOUSEBUTTONDOWN):
+            if (x > w * 10/1600  and x < w * 610/1600 and y > h * 10/900 and y < h * 130/900 and event.type == pygame.MOUSEBUTTONDOWN):
                 play = False
         
         #game screens
