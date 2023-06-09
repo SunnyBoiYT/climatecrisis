@@ -109,7 +109,7 @@ maxCooldown = 2
 currCooldown = maxCooldown #Cooldown for tree planting
 firstPlant = False
 
-temp = 0.3 #Used for global warming
+temp = 1.0 #Used for global warming
 
 #for wildfire
 fireTimeChosen = False
