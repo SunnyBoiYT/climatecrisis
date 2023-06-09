@@ -1,7 +1,8 @@
 import pygame
-pygame.init()
 import os
 import random
+
+pygame.init()
 
 #makes window and sets main menu background
 window = pygame.display.set_mode((0, 0), pygame.FULLSCREEN, pygame.RESIZABLE)
@@ -17,6 +18,7 @@ tcQRInit = pygame.image.load(os.path.join("./", "tcQR.png"))
 tcQR = pygame.transform.scale(tcQRInit, (h, h))
 
 #quit button all initialized and scaled here
+#-------------
 quitInit = pygame.image.load(os.path.join("./", "quit.png"))
 quit = pygame.transform.scale(quitInit, (w * 600/1600, h * 120/900))
 quitHovInit = pygame.image.load(os.path.join("./", "quitHov.png"))
@@ -79,13 +81,16 @@ bobSeedRight = pygame.transform.scale(bobSeedRightInit, (w * 70/1600, h * 175/90
 #Font for winning or losing text/info on top right
 font = pygame.font.Font('freesansbold.ttf', int(w * 50/1600))
 winLoseFont = pygame.font.Font('freesansbold.ttf', int(w * 200/1600))
+##-------------
 winText = winLoseFont.render('YOU WON!', True, (0,0,0), None)
 loseText = winLoseFont.render('YOU LOST!', True, (0,0,0), None)
 
 #some important parameters
-play = True #Basically says that the program is running
-start_ticks = pygame.time.get_ticks() #Starts the timer for the game during the main menu, to remove later
-screen = 0 #Sets this variable to 0, meaning that the screen that it's on is on the main menu by default
+#Basically says that the program is running
+play = True
+
+#Sets this variable to 0, meaning that the screen that it's on is on the main menu by default
+screen = 0
 
 #Scaled to be proportionate to monitor size, and is not currently moving right or left.
 playerX = w * 40/1600
@@ -114,6 +119,9 @@ ballX = w * 1800/1600
 ballY = h * -200/900
 ballTimeChosen = False
 timeToFireBall = 0
+
+#Starts the timer for the game during the main menu, to remove later
+start_ticks = pygame.time.get_ticks()
 
 while play:
     
@@ -153,6 +161,7 @@ while play:
 
         if ((int(seconds) > prevTime) and (temp > 0)):
             temp -= (len(trees) - 3) * 0.01 #For temperature change
+            
         prevTime = seconds
 
         yearText = font.render('Year: ' + str(int(seconds - gameStartTime) + 2023), True, (0,0,0), None)
@@ -220,7 +229,7 @@ while play:
         #fireball 
         if (not ballTimeChosen):
             nextFireBall = seconds + ((int)(random.random()*11) + 10)
-            ballTimeChosen = True
+            ballTimeChosen = True #helper boolean to only set nextFireBall to a random number once.
         elif (seconds >= nextFireBall):
             timeToFireBall = seconds - nextFireBall
             if ((ballY < 450) and (int(seconds) % prevTime >= 1)):
